@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+    id        Int @id @default(autoincrement())
+    email     String @unique
+    name      String
+    mobile    Int @unique
+    gender    String
+    userType  UserType @default(normal)
+    password  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum UserType {
+  normal
+  admin
+}
+
+model Contact {
+  id        Int     @id @default(autoincrement())
+  senderId  Int
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exchange{
+  id            Int @id @default(autoincrement())
+  requesterId   Int
+  requestedWith String
+  requestedFor  String
+  requestedWithBank String
+  requestedForBank String
+  onRate Int @default(0)
+  requestedWithBankDetails String
+  requestedForBankDetails String
+
+  amount        Int 
+  state        ExchangeState @default(Applied)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  @@index([requesterId])
+}
+
+enum ExchangeState {
+  Applied
+  Processing
+  Converted
+}
+
+model Home_Page {
+  id        Int @id
+  hero_list String
+
+}
+
+model Buying_rates {
+ id Int @id @default(autoincrement())
+  payeer Int @default(0)
+  ethereum Int @default(0)
+  litecoin Int @default(0) 
+  dogecoin Int @default(0)
+  perfectmoney Int @default(0)
+  pyypl Int @default(0)
+  shibcoin Int @default(0)
+  tether Int @default(0)
+  troncoin Int @default(0)
+  webmoney Int @default(0)// Set default value to 0
+}
+model Selling_rates{
+  id Int @id @default(autoincrement())
+  payeer Int @default(0)
+  ethereum Int @default(0)
+  litecoin Int @default(0) 
+  dogecoin Int @default(0)
+  perfectmoney Int @default(0)
+  pyypl Int @default(0)
+  shibcoin Int @default(0)
+  tether Int @default(0)
+  troncoin Int @default(0)
+  webmoney Int @default(0)
+}
+
+model News {
+  id      Int @id @default(autoincrement())
+  title String
+  content String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}

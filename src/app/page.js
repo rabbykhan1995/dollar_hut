@@ -1,0 +1,109 @@
+import ExchangeInHomePage from "@/components/ExchangeInHomePage/ExchangeInHomePage";
+
+const getData = async () => {
+  const response1 = await fetch(
+    `${process.env.HOST}/api/admin_panel/customize_page/home`,
+    { cache: "no-cache" }
+  );
+
+  const response2 = await fetch(`${process.env.HOST}/api/admin_panel/rates`, {
+    cache: "no-cache",
+  });
+
+  const data1 = await response1.json();
+  const data2 = await response2.json();
+  return { data1, data2 };
+};
+
+var { data1, data2 } = await getData();
+
+const page = async () => {
+  return (
+    <div className="pt-10">
+      <h1>this is a sipons home page</h1>
+      <div>
+        <h1>Total User : 40000 User</h1>
+      </div>
+
+      <div className="flex flex-col sm:flex-row h-[60vh] gap-5">
+        <div className="Hero h-full flex flex-col justify-center items-center hover:border border-green-500 rounded-xl w-full ">
+          <span className=" text-5xl font-mono font-bold  bg-gradient-to-r from-blue-700 to-green-500 bg-clip-text text-transparent">
+            This is
+          </span>
+          <span className="text-xl">Dollar Hut</span>
+        </div>
+
+        <ExchangeInHomePage />
+      </div>
+
+      {/* Dollar rate showing area */}
+      <div className="flex flex-col sm:flex-row justify-around gap-10 font-mono text-zinc-600">
+        <div className="Hero h-full flex flex-col justify-center items-center hover:border border-green-500 rounded-xl w-full">
+          <h2 className="text-xl mb-5 text-white">Buying Rates</h2>
+          <table className="min-w-full bg-white border rounded-lg ">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b">Currency</th>
+                <th className="py-2 px-4 border-b">Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(data2.result.buyingRates).map((rate, index) => {
+                if (rate !== "id") {
+                  return (
+                    <tr
+                      key={rate}
+                      className={`hover:bg-green-100 ${
+                        index % 2 === 0 ? "bg-gray-300" : "bg-white"
+                      }`}
+                    >
+                      <td className="py-2 px-4 border-b">{rate}</td>
+                      <td className="py-2 px-4 border-b">
+                        {data2.result.buyingRates[rate]} tk
+                      </td>
+                    </tr>
+                  );
+                }
+                return null;
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="Hero h-full flex flex-col justify-center items-center hover:border border-green-500 rounded-xl w-full ">
+          <h2 className="text-xl mb-5 text-white">Selling Rates</h2>
+          <table className="min-w-full bg-white border rounded-lg  ">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b">Currency</th>
+                <th className="py-2 px-4 border-b">Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(data2.result.sellingRates).map((rate, index) => {
+                if (rate !== "id") {
+                  return (
+                    <tr
+                      key={rate}
+                      className={`hover:bg-green-100 ${
+                        index % 2 === 0 ? "bg-gray-300" : "bg-white"
+                      }`}
+                    >
+                      <td className="py-2 px-4 border-b">{rate}</td>
+                      <td className="py-2 px-4 border-b">
+                        {data2.result.sellingRates[rate]} tk
+                      </td>
+                    </tr>
+                  );
+                }
+                return null;
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default page;
