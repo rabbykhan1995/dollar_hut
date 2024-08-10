@@ -19,7 +19,7 @@ const ExchangeInHomePage = () => {
 
   return (
     <div className="Right w-full h-full flex flex-col justify-center items-center hover:border border-green-500 rounded-xl">
-      <h1>today's USD Rate is Taka per 1 $</h1>
+      <h1>today&apos;s USD Rate is Taka per 1 $</h1>
     </div>
   );
 };

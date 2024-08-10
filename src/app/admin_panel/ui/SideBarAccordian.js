@@ -11,7 +11,7 @@ const SideBarAccordian = ({ obj }) => {
 
   useEffect(() => {
     show ? setItemArray(items) : setItemArray([]);
-  }, [show]);
+  }, [show, items]);
 
   return (
     <div className="capitalize">

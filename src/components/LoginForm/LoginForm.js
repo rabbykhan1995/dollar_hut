@@ -24,17 +24,20 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resultAction = dispatch(loginUser(credential));
+      await dispatch(loginUser(credential));
     } catch (error) {
       console.error("Failed to login:", error);
     }
   };
 
+  // Extract the complex dependency expression
+  const isSucceeded = status === "succeeded";
+
   useEffect(() => {
-    if (status === "succeeded") {
+    if (isSucceeded) {
       router.push("/profile");
     }
-  }, [status === "succeeded"]);
+  }, [isSucceeded, router]); // Include `isSucceeded` and `router` in the dependency array
 
   return (
     <div>

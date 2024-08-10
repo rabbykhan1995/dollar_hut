@@ -31,7 +31,7 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resultAction = dispatch(registerUser(formData));
+      await dispatch(registerUser(formData));
     } catch (error) {
       console.error("Failed to register:", error);
     }
@@ -41,10 +41,11 @@ const RegisterForm = () => {
     if (status === "succeeded") {
       router.push("/profile");
     }
-  }, [status === "succeeded"]);
+  }, [status, router]); // Include `status` and `router` in the dependency array
 
   return (
     <div>
+      {/* Uncomment the error message if needed */}
       {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
       <form
         onSubmit={handleSubmit}
