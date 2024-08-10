@@ -1,14 +1,22 @@
 const getData = async () => {
-  const response = await fetch(`${process.env.HOST}/api/news`, {
-    cache: "no-cache",
-  });
-  const data = await response.json();
-
-  return data;
+  try {
+    const response = await fetch(`${process.env.HOST}/api/news`);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { result: {} }; // Return an empty object or handle the error as needed
+  }
 };
 
 const page = async () => {
   const { result } = await getData();
+  if (!result || !result.updatedAt) {
+    throw new Error("Invalid response data");
+  }
   const date = new Date(result.updatedAt);
 
   // Format the date to a readable format

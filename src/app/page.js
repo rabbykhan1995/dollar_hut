@@ -1,5 +1,3 @@
-import ExchangeInHomePage from "@/components/ExchangeInHomePage/ExchangeInHomePage";
-
 const fetchData = async () => {
   try {
     const response1 = await fetch(
@@ -44,8 +42,6 @@ const HomePage = async () => {
           </span>
           <span className="text-xl">Dollar Hut</span>
         </div>
-
-        <ExchangeInHomePage />
       </div>
 
       {/* Dollar rate showing area */}
