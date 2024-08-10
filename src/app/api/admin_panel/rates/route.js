@@ -14,6 +14,7 @@ export const GET = async () => {
     });
   } catch (error) {
     console.error("GET /api/admin_panel/rates error:", error.message);
+
     return NextResponse.json({
       msg: "Failed to retrieve rates",
       error: error.message,

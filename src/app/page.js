@@ -1,23 +1,35 @@
 import ExchangeInHomePage from "@/components/ExchangeInHomePage/ExchangeInHomePage";
 
-const getData = async () => {
-  const response1 = await fetch(
-    `${process.env.HOST}/api/admin_panel/customize_page/home`,
-    { cache: "no-cache" }
-  );
+const fetchData = async () => {
+  try {
+    const response1 = await fetch(
+      `${process.env.HOST}/api/admin_panel/customize_page/home`,
+      { cache: "no-cache" }
+    );
+    const response2 = await fetch(`${process.env.HOST}/api/admin_panel/rates`, {
+      cache: "no-cache",
+    });
 
-  const response2 = await fetch(`${process.env.HOST}/api/admin_panel/rates`, {
-    cache: "no-cache",
-  });
+    if (!response1.ok || !response2.ok) {
+      throw new Error("Failed to fetch data");
+    }
 
-  const data1 = await response1.json();
-  const data2 = await response2.json();
-  return { data1, data2 };
+    const data1 = await response1.json();
+    const data2 = await response2.json();
+
+    return { data1, data2 };
+  } catch (error) {
+    return { error: error.message };
+  }
 };
 
-var { data1, data2 } = await getData();
+const HomePage = async () => {
+  const { data1, data2, error } = await fetchData();
 
-const page = async () => {
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className="pt-10">
       <h1>this is a sipons home page</h1>
@@ -48,9 +60,9 @@ const page = async () => {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(data2.result.buyingRates).map((rate, index) => {
-                if (rate !== "id") {
-                  return (
+              {Object.keys(data2?.result?.buyingRates || {}).map(
+                (rate, index) =>
+                  rate !== "id" && (
                     <tr
                       key={rate}
                       className={`hover:bg-green-100 ${
@@ -62,10 +74,8 @@ const page = async () => {
                         {data2.result.buyingRates[rate]} tk
                       </td>
                     </tr>
-                  );
-                }
-                return null;
-              })}
+                  )
+              )}
             </tbody>
           </table>
         </div>
@@ -80,9 +90,9 @@ const page = async () => {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(data2.result.sellingRates).map((rate, index) => {
-                if (rate !== "id") {
-                  return (
+              {Object.keys(data2?.result?.sellingRates || {}).map(
+                (rate, index) =>
+                  rate !== "id" && (
                     <tr
                       key={rate}
                       className={`hover:bg-green-100 ${
@@ -94,10 +104,8 @@ const page = async () => {
                         {data2.result.sellingRates[rate]} tk
                       </td>
                     </tr>
-                  );
-                }
-                return null;
-              })}
+                  )
+              )}
             </tbody>
           </table>
         </div>
@@ -106,4 +114,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default HomePage;

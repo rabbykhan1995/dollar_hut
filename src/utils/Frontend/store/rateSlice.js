@@ -30,7 +30,7 @@ const rateSlice = createSlice({
         state.status = "succeeded";
         state.rate = action.payload;
       })
-      .addCase(fetchRate.rejected, (state) => {
+      .addCase(fetchRate.rejected, (state, action) => {
         state.rate = action.payload;
         state.status = "failed";
       });

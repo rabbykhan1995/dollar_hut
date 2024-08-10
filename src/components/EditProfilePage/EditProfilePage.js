@@ -1,150 +1,105 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { BiHide, BiShow } from "react-icons/bi";
-import { editUser } from "@/utils/Frontend/store/user/userThunks";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { editUser } from "@/utils/Frontend/store/user/userThunks"; // Adjust the import path as necessary
 
 const EditProfilePage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.user);
-  const { user, status, error } = userState;
+  const { status, user } = useSelector((state) => state.user); // Access both status and user from the state
 
-  const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    old_password: "",
-    new_password: "",
+    name: user?.name || "",
+    email: user?.email || "",
+    mobile: user?.mobile || "",
+    gender: user?.gender || "",
   });
-
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.name,
-        email: user.email,
-        mobile: user.mobile,
-        old_password: "",
-        new_password: "",
-      });
-    }
-  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(editUser(formData));
+    try {
+      // Dispatch the update action and wait for it to complete
+      const resultAction = await dispatch(editUser(formData));
+
+      // Check if the action was successful
+      if (editUser.fulfilled.match(resultAction)) {
+        // Redirect to the profile page on successful update
+        router.push("/profile");
+      } else {
+        // Handle errors if the action was rejected
+        console.error("Failed to update profile:", resultAction.payload);
+      }
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
   };
 
-  useEffect(() => {
-    if (status === "succeeded") {
-      router.push("/profile"); // Redirect to profile page or any other page
-    }
-  }, [status, router]);
-
   return (
-    <div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="flex m-10 h-[70vh] justify-center items-center flex-col gap-5">
+      <h1>Edit Profile</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5 justify-center items-center"
+        className="flex flex-col gap-5 w-full max-w-md"
       >
-        <h1>Edit Profile</h1>
-        <div className="flex md:flex-row flex-col gap-5">
-          <label htmlFor="name">Name :</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600"
-          />
-        </div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={formData.name}
+          onChange={handleChange}
+          className="p-2 border rounded"
+          required
+        />
 
-        <div className="flex md:flex-row flex-col gap-5">
-          <label htmlFor="email">Email :</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="example12345@gmail.com"
-            value={formData.email}
-            onChange={handleChange}
-            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
-          />
-        </div>
-        <div className="flex md:flex-row flex-col gap-5">
-          <label htmlFor="old_password">Old Password :</label>
-          <div className="relative">
-            <input
-              type={show ? "text" : "password"}
-              name="old_password"
-              id="old_password"
-              placeholder="Old/Previous Password"
-              value={formData.old_password}
-              onChange={handleChange}
-              className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
-            />
-            <button
-              type="button"
-              className="absolute right-0 text-gray-500 text-2xl"
-              onClick={() => setShow(!show)}
-            >
-              {show ? <BiHide /> : <BiShow />}
-            </button>
-          </div>
-        </div>
-        <div className="flex md:flex-row flex-col gap-5">
-          <label htmlFor="new_password">New Password :</label>
-          <div className="relative">
-            <input
-              type={show ? "text" : "password"}
-              name="new_password"
-              id="new_password"
-              placeholder="Min 8 characters New Password"
-              value={formData.new_password}
-              onChange={handleChange}
-              className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
-            />
-            <button
-              type="button"
-              className="absolute right-0 text-gray-500 text-2xl"
-              onClick={() => setShow(!show)}
-            >
-              {show ? <BiHide /> : <BiShow />}
-            </button>
-          </div>
-        </div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="p-2 border rounded"
+          required
+        />
 
-        <div className="flex md:flex-row flex-col gap-5">
-          <label htmlFor="mobile">Mobile :</label>
-          <input
-            type="text"
-            placeholder="017********"
-            name="mobile"
-            id="mobile"
-            onChange={handleChange}
-            value={formData.mobile}
-            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
-          />
-        </div>
+        <label htmlFor="mobile">Mobile:</label>
+        <input
+          type="text"
+          name="mobile"
+          id="mobile"
+          value={formData.mobile}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        />
+
+        <label htmlFor="gender">Gender:</label>
+        <select
+          name="gender"
+          id="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          className="p-2 border rounded"
+          required
+        >
+          <option value="">Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
 
         <button
           type="submit"
-          className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md bg-blue-500 hover:bg-blue-800 text-white"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          disabled={status === "loading"}
         >
-          Edit
+          {status === "loading" ? "Updating..." : "Update Profile"}
         </button>
       </form>
     </div>
