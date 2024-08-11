@@ -3,7 +3,7 @@ CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `mobile` INTEGER NOT NULL,
+    `mobile` VARCHAR(191) NOT NULL,
     `gender` VARCHAR(191) NOT NULL,
     `userType` ENUM('normal', 'admin') NOT NULL DEFAULT 'normal',
     `password` VARCHAR(191) NOT NULL,
@@ -11,7 +11,6 @@ CREATE TABLE `User` (
     `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
-    UNIQUE INDEX `User_mobile_key`(`mobile`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -85,6 +84,17 @@ CREATE TABLE `Selling_rates` (
     `tether` INTEGER NOT NULL DEFAULT 0,
     `troncoin` INTEGER NOT NULL DEFAULT 0,
     `webmoney` INTEGER NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `News` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(191) NOT NULL,
+    `content` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

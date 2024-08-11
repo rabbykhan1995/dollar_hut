@@ -1,10 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { generateToken, verifyToken } from "@/utils/Backend/jwt";
-import { headers } from "next/headers";
+import { generateToken } from "@/utils/Backend/jwt";
 import prisma from "../../../../../lib/prisma";
 
-export async function POST(req, res) {
+export async function POST(req) {
   try {
     const credential = await req.json();
     const { identifier, password } = credential;
