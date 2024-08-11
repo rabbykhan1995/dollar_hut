@@ -46,7 +46,6 @@ const ExchangePageForm = () => {
       const data = await response.json();
 
       if (data.result) {
-        console.log(data.result);
         setFormData({
           method: "t",
           requestedWithBank: "bkash",

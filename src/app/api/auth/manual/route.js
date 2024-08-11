@@ -33,11 +33,18 @@ export async function POST(req, res) {
         email,
         password: hashedPassword,
         gender,
-        mobile: parseInt(mobile),
+        mobile,
       },
     });
 
-    return NextResponse.json({ user: newUser, status: 201 });
+    return NextResponse.json({
+      email: newUser.email,
+      name: newUser.name,
+      gender: newUser.gender,
+      id: newUser.id,
+      mobile: newUser.mobile,
+      userType: newUser.userType,
+    });
   } catch (error) {
     console.log("Error in server at api/auth/manual -", error);
     return NextResponse.json(

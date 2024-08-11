@@ -42,7 +42,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = "failed";
@@ -66,7 +66,7 @@ const userSlice = createSlice({
       })
       .addCase(editUser.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(editUser.rejected, (state, action) => {
         state.status = "failed";

@@ -44,7 +44,14 @@ export const POST = async (req) => {
       data: updateData,
     });
 
-    return NextResponse.json(user);
+    return NextResponse.json({
+      name: user.name,
+      email: user.email,
+      id: user.id,
+      gender: user.gender,
+      mobile: user.mobile,
+      userType: user.userType,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

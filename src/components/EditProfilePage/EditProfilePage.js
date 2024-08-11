@@ -12,8 +12,9 @@ const EditProfilePage = () => {
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
-    mobile: user?.mobile || "",
     gender: user?.gender || "",
+    old_password: "",
+    new_password: "",
   });
 
   const handleChange = (e) => {
@@ -68,14 +69,25 @@ const EditProfilePage = () => {
           className="p-2 border rounded"
           required
         />
-
-        <label htmlFor="mobile">Mobile:</label>
+        <label htmlFor="password">Old Password:</label>
         <input
           type="text"
-          name="mobile"
-          id="mobile"
-          value={formData.mobile}
+          name="old_password"
+          id="old_password"
+          value={formData.old_password}
           onChange={handleChange}
+          placeholder="input old password"
+          className="p-2 border rounded"
+        />
+
+        <label htmlFor="password">New Password:</label>
+        <input
+          type="text"
+          name="new_password"
+          id="new_password"
+          value={formData.new_password}
+          onChange={handleChange}
+          placeholder="input new password"
           className="p-2 border rounded"
         />
 

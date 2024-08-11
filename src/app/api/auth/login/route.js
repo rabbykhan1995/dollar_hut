@@ -34,7 +34,14 @@ export async function POST(req) {
     const token = await generateToken({ id: user.id, email: user.email });
 
     return NextResponse.json(
-      { user },
+      {
+        name: user.name,
+        email: user.email,
+        id: user.id,
+        userType: user.userType,
+        mobile: user.mobile,
+        gender: user.gender,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
