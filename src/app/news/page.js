@@ -9,7 +9,7 @@ const getData = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Fetch error:", error);
+    console.error("Fetch error:", error.message, error.stack);
     return { result: {} }; // Return an empty object or handle the error as needed
   }
 };

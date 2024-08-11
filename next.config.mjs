@@ -1,5 +1,5 @@
 const nextConfig = {
-  // Future configuration options can be added here
+  reactStrictMode: true,
   images: {},
 };
 
