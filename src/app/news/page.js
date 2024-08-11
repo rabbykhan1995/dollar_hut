@@ -1,6 +1,8 @@
 const getData = async () => {
   try {
-    const response = await fetch(`${process.env.HOST}/api/news`);
+    const response = await fetch(`${process.env.HOST}/api/news`, {
+      cache: "no-cache",
+    });
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }

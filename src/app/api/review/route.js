@@ -1,8 +1,6 @@
 import { verifyToken } from "@/utils/Backend/jwt";
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import prisma from "../../../../lib/prisma";
 
 export const POST = async (req) => {
   try {
