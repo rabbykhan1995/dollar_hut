@@ -180,10 +180,8 @@ export const PATCH = async (req) => {
       },
     });
   } catch (error) {
-    console.error(error);
     return NextResponse.json({
       msg: "Failed to update rates",
-      error: error.message,
     });
   }
 };

@@ -64,7 +64,6 @@ export const POST = async (req) => {
 
     return NextResponse.json({ msg: "Successful", result: createOrder });
   } catch (error) {
-    console.error("Error in creating order:", error);
-    return NextResponse.json({ msg: "Error in server", error: error.message });
+    return NextResponse.json({ msg: "Error in server" });
   }
 };

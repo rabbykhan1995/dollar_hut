@@ -46,11 +46,9 @@ export async function POST(req, res) {
       userType: newUser.userType,
     });
   } catch (error) {
-    console.log("Error in server at api/auth/manual -", error);
     return NextResponse.json(
       {
         message: "Internal server error",
-        status: 500,
       },
       { status: 500 }
     );

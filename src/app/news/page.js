@@ -12,15 +12,12 @@ const NewsPage = () => {
         const response = await fetch(`${process.env.HOST}/api/news`, {
           cache: "no-cache",
         });
-
+        const data = await response.json();
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          console.log(data.msg);
         }
 
-        const data = await response.json();
-        setResult(data);
+        setResult(data.result);
       } catch (error) {
         console.error("Fetch error:", error.message, error.stack);
         setError(error.message);
@@ -31,11 +28,9 @@ const NewsPage = () => {
 
     fetchData();
   }, []);
-
-  if (loading) return <div>Loading...</div>;
+  if (loading) return null;
   if (error) return <div>Error: {error}</div>;
-  if (!result || !result.updatedAt)
-    return <div>Error: Invalid response data</div>;
+  if (!result || !result.updatedAt) return <div>No news published yet</div>;
 
   const date = new Date(result.updatedAt);
 
@@ -53,7 +48,7 @@ const NewsPage = () => {
   const formattedDate = date.toLocaleString("en-US", options);
 
   return (
-    <div className="flex justify-center items-center h-[70vh] flex-col gap-5 m-5">
+    <div className="flex justify-center items-center min-h-[70vh] flex-col gap-5 m-5">
       <h1 className="text-3xl">Today&apos;s Top News is - </h1>
       <div className="flex flex-col gap-5 w-full p-7 border bg-zinc-500 rounded-xl">
         <h1 className="text-2xl flex gap-5 justify-start sm:justify-center items-center capitalize font-mono font-semibold">

@@ -5,6 +5,19 @@ export const POST = async (req) => {
   try {
     const news = await req.json();
 
+    const newsFounded = await prisma.news.findUnique({ where: { id: 1 } });
+
+    if (!newsFounded) {
+      const createNews = await prisma.news.create({
+        data: news,
+      });
+
+      return NextResponse.json({
+        msg: "successfully created",
+        result: createNews,
+      });
+    }
+
     const updatedNews = await prisma.news.update({
       where: {
         id: 1, // Replace with the actual id of the news record you want to update
@@ -12,7 +25,10 @@ export const POST = async (req) => {
       data: news,
     });
 
-    return NextResponse.json({ msg: "successfull", result: updatedNews });
+    return NextResponse.json({
+      msg: "successfully updated",
+      result: updatedNews,
+    });
   } catch (error) {
     return NextResponse.json({ msg: "sorry something went wrong" });
   }
@@ -26,6 +42,7 @@ export const GET = async () => {
 
     return NextResponse.json({ msg: "successfull", result: news });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ msg: "sorry something wrong" });
   }
 };

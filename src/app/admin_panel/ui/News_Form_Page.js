@@ -13,7 +13,6 @@ const News_Form_Page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(news);
     try {
       const response = await fetch(`${process.env.HOST}/api/news`, {
         method: "POST",
@@ -22,13 +21,11 @@ const News_Form_Page = () => {
         cache: "no-cache",
       });
       const data = await response.json();
-      //   console.log(data)
       alert(`${data.msg}`);
       setNews({ title: "", content: "" });
       setOldNews({ title: data.result.title, content: data.result.content });
     } catch (error) {
-      console.log(error);
-      alert(`${data.msg}`);
+      alert(`${error.msg}`);
     }
   };
 
@@ -61,7 +58,7 @@ const News_Form_Page = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-5 items-center justify-center h-[70vh]"
+      className="flex flex-col gap-5 items-center justify-center min-h-[70vh]"
     >
       <input
         type="text"
@@ -84,7 +81,7 @@ const News_Form_Page = () => {
         Publish
       </button>
 
-      <div className="flex flex-col gap-5 border p-5">
+      <div className="flex flex-col gap-5 justify-center border p-5 w-[80vw] sm:w-[60vw]">
         <h1>{oldNews.title}</h1>
         <p>{oldNews.content}</p>
       </div>

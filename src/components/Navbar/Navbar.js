@@ -6,40 +6,62 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout, resetState } from "@/utils/Frontend/store/user/userSlice";
 
 const Navbar = () => {
-  const { user, status, error } = useSelector((state) => state.user);
+  const { user, status } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { cache: "no-cache" });
     dispatch(logout());
     dispatch(resetState());
-    if (user === null) {
-    }
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // Scrolling down
+        setIsNavbarVisible(false);
+      } else {
+        // Scrolling up
+        setIsNavbarVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
     <div
-      className={`Nav_Container flex flex-col gap-5 fixed w-screen bg-slate-700 px-5 py-2 tracking-wider font-mono`}
+      className={`Nav_Container flex flex-col gap-5 fixed w-screen bg-[#0077dd] px-5 py-2 tracking-wider font-mono transition-transform duration-300 ${
+        isNavbarVisible
+          ? "transform translate-y-0"
+          : "transform -translate-y-full"
+      }`}
     >
       <MenuButton />
 
       <ul className="hidden lg:flex justify-between py-1 px-5">
         <li>
-          <Link href={"/"}>Home</Link>
+          <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href={"/review"}>Review</Link>
+          <Link href="/review">Review</Link>
         </li>
         {user ? (
           <li>
-            <Link href={"/exchange"}>Exchange</Link>
+            <Link href="/exchange">Exchange</Link>
           </li>
         ) : null}
         <li>
-          <Link href={"/news"}>News</Link>
+          <Link href="/news">News</Link>
         </li>
         {user ? (
           <li>
-            <Link href={"/contact"}>Contact</Link>
+            <Link href="/contact">Contact</Link>
           </li>
         ) : null}
         <li>

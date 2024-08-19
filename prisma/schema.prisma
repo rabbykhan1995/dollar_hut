@@ -97,9 +97,9 @@ model Selling_rates{
 }
 
 model News {
-  id      Int @id @default(autoincrement())
-  title String
-  content String
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text   // Use @db.Text for medium-length content or @db.LongText for very long content
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

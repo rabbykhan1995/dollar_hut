@@ -50,33 +50,33 @@ const MenuButton = () => {
       {show ? (
         <div
           ref={menuRef}
-          className="fixed flex flex-col gap-5 px-4 py-2 bg-red-600  w-screen top-9 rounded-lg"
+          className="fixed flex flex-col gap-5 px-4 py-2 bg-[#cc6c5c]  w-screen top-9 rounded-xl"
         >
           <h1>
-            <Link className="flex gap-2" href={"/"}>
+            <Link className="flex gap-2 hover:bg-zinc-700" href={"/"}>
               <IoHome className="text-2xl" /> <span>Home</span>
             </Link>
           </h1>
           <h1>
-            <Link className="flex gap-2" href={"/review"}>
+            <Link className="flex gap-2 hover:bg-zinc-700" href={"/review"}>
               <MdRateReview className="text-2xl" /> <span>Review</span>
             </Link>
           </h1>
           {user ? (
             <h1>
-              <Link href={"/contact"} className="flex gap-2">
+              <Link href={"/contact"} className="flex gap-2 hover:bg-zinc-700">
                 <MdEmail className="text-2xl" /> <span>Contact Us</span>
               </Link>
             </h1>
           ) : null}
           <h1>
-            <Link href={"/news"} className="flex gap-2">
+            <Link href={"/news"} className="flex gap-2 hover:bg-zinc-700">
               <FaNewspaper className="text-2xl" /> <span>News</span>
             </Link>
           </h1>
           {user ? (
             <h1>
-              <Link href={"/exchange"} className="flex gap-2">
+              <Link href={"/exchange"} className="flex gap-2 hover:bg-zinc-700">
                 <BsCurrencyExchange className="text-2xl" />
                 <span>Exchange</span>
               </Link>
@@ -87,10 +87,10 @@ const MenuButton = () => {
             {status === "succeeded" && user && (
               <>
                 {user.userType === "normal" ? (
-                  <div className="flex flex-col gap-2">
+                  <div className="flex  gap-2">
                     <Link
                       href="/profile"
-                      className="bg-green-700 rounded-full flex justify-center items-center px-3"
+                      className="bg-yellow-700 rounded-full flex justify-center items-center px-3"
                     >
                       {user.name
                         .split("")

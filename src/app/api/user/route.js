@@ -18,7 +18,7 @@ export const GET = async (req) => {
 
   if (!token) {
     return NextResponse.json(
-      { error: "User is not logged in, no token provided" },
+      { msg: "User is not logged in, no token provided" },
       { status: 401 }
     );
   }
@@ -28,7 +28,7 @@ export const GET = async (req) => {
 
     if (!tokenIsVerified) {
       return NextResponse.json(
-        { error: "User is not logged in, token is invalid" },
+        { msg: "User is not logged in, token is invalid" },
         { status: 401 }
       );
     }
@@ -47,14 +47,11 @@ export const GET = async (req) => {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ msg: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json(user);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ msg: "Internal server error" }, { status: 500 });
   }
 };

@@ -1,3 +1,6 @@
+import prisma from "../../lib/prisma";
+import Image from "next/image";
+
 const fetchData = async () => {
   try {
     const response1 = await fetch(
@@ -23,25 +26,35 @@ const fetchData = async () => {
 
 const HomePage = async () => {
   const { data1, data2, error } = await fetchData();
-
+  const totalUser = await prisma.user.count();
+  const totalExchange = await prisma.exchange.count();
+  const imageUrl =
+    "https://res.cloudinary.com/dstwflz0y/image/upload/v1723535532/sipn%20website/homepage/gtnxjigbp1glf8wy3zfb.jpg";
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
     <div className="pt-10">
-      <h1>this is a sipons home page</h1>
-      <div>
-        <h1>Total User : 40000 User</h1>
-      </div>
-
-      <div className="flex flex-col sm:flex-row h-[60vh] gap-5">
-        <div className="Hero h-full flex flex-col justify-center items-center hover:border border-green-500 rounded-xl w-full ">
-          <span className=" text-5xl font-mono font-bold  bg-gradient-to-r from-blue-700 to-green-500 bg-clip-text text-transparent">
+      <div className="flex flex-col sm:flex-row justify-between h-[100vh] gap-5 bg-[#e4ff82] text-[#1d1d1d] font-semibold italic">
+        <div className="flex flex-col justify-center items-start p-5 w-full xs:w-1/2 space-y-4">
+          <span className="text-5xl font-mono font-bold bg-gradient-to-r from-green-700 to-violet-500 bg-clip-text text-transparent">
             This is
           </span>
-          <span className="text-xl">Dollar Hut</span>
+          <span className="text-2xl font-bold text-gray-800">Dollar Hut</span>
+          <h1 className="text-xl">Total User: {totalUser} User</h1>
+          <h1 className="text-xl">Total Order: {totalExchange}</h1>
         </div>
+
+        <Image src={imageUrl} alt="home" height={400} width={300} />
+      </div>
+
+      <div className="flex justify-center items-center p-10 min-h-[50vh] text-lg overflow-hidden text-red-500">
+        <h1 className="whitespace-nowrap animate-marquee">
+          আমি বলতে চাই যে সমস্ত লেনদেন আপনার খরচে সম্পন্ন হবে। এছাড়াও, টাকা
+          থেকে ডলার এবং ডলার থেকে টাকা রূপান্তরের জন্য, প্রযোজ্য সমস্ত চার্জ
+          ব্যবহারকারীকেই বহন করতে হবে।
+        </h1>
       </div>
 
       {/* Dollar rate showing area */}

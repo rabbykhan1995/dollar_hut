@@ -20,7 +20,6 @@ export const POST = async (req) => {
 
     return NextResponse.json({ totalExchange, itemArray });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ msg: "error in server" });
   }
 };

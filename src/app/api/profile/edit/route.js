@@ -31,7 +31,7 @@ export const POST = async (req) => {
       );
       if (!comparedPassword) {
         return NextResponse.json(
-          { error: "Old password is incorrect" },
+          { msg: "Old password is incorrect" },
           { status: 401 }
         );
       }
@@ -55,7 +55,7 @@ export const POST = async (req) => {
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: "An error occurred while updating the user" },
+      { msg: "An error occurred while updating the user" },
       { status: 500 }
     );
   }
