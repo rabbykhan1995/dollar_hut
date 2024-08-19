@@ -4,7 +4,7 @@ import prisma from "../../../../../lib/prisma";
 export const POST = async (req) => {
   try {
     const clientData = await req.json();
-    const { method, to, from, date, showby, state } = clientData;
+    const { method, date, state } = clientData;
     console.log(clientData);
     let filter = {};
     // it denotes that, if method is 't',means method starts with Taka ..if 'b' then it will out of the loop...
@@ -20,10 +20,14 @@ export const POST = async (req) => {
       filter.state = state;
     }
 
-    if (date !== "") {
-      filter.createdAt = new Date(date);
+    // Filter based on date
+    if (date) {
+      filter.createdAt = {
+        gte: new Date(date),
+        lt: new Date(new Date(date).setDate(new Date(date).getDate() + 1)),
+      };
     }
-    console.log("filter", filter);
+
     const orderArray = await prisma.exchange.findMany({ where: filter });
 
     if (orderArray.length === 0) {
