@@ -1,5 +1,6 @@
 "use client";
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,9 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       await dispatch(registerUser(formData));
+      if (user) {
+        router.push("/profile");
+      }
     } catch (error) {
       console.error("Failed to register:", error);
     }
@@ -61,7 +65,7 @@ const RegisterForm = () => {
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
-            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600"
+            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-xl border focus:border-red-500 outline-none text-sm text-gray-600"
             required
           />
         </div>
@@ -75,7 +79,7 @@ const RegisterForm = () => {
             placeholder="example12345@gmail.com"
             value={formData.email}
             onChange={handleChange}
-            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
+            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-xl outline-none border focus:border-red-500 text-gray-600 text-sm font-light"
             required
           />
         </div>
@@ -89,12 +93,12 @@ const RegisterForm = () => {
               placeholder="Min 8 characters"
               value={formData.password}
               onChange={handleChange}
-              className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
+              className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-xl outline-none border focus:border-red-500 text-gray-600 text-sm font-light"
               required
             />
             <button
               type="button"
-              className="absolute right-0 text-gray-500 text-2xl"
+              className="absolute right-2 text-gray-500 text-2xl"
               onClick={() => setShow(!show)}
             >
               {show ? <BiShow /> : <BiHide />}
@@ -103,15 +107,45 @@ const RegisterForm = () => {
         </div>
 
         <div className="flex md:flex-row flex-col gap-5">
-          <label htmlFor="mobile">Mobile :</label>
-          <input
-            type="text"
-            placeholder="017********"
-            name="mobile"
-            id="mobile"
-            onChange={handleChange}
-            value={formData.mobile}
-            className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md text-gray-600 text-sm font-light"
+          <label htmlFor="mobile">Mobile Number:</label>
+          <PhoneInput
+            country={"bd"} // Default country code
+            value={formData.mobile} // The value from your form state
+            onChange={(phone) => setFormData({ ...formData, mobile: phone })} // Update state directly
+            inputStyle={{
+              width: "100%",
+              borderRadius: "0.375rem",
+              fontSize: "0.875rem",
+              fontWeight: "400",
+              color: "#000000", // Text color set to black
+              padding: "10px 70px", // Adjust padding for better alignment
+              border: "1px solid #E5E7EB", // Border color to match Tailwind's gray-200
+              boxSizing: "border-box", // Consistent sizing
+              height: "30px", // Ensure a consistent height for the input
+            }}
+            buttonStyle={{
+              backgroundColor: "#FFFFFF", // Background color for the country selector button
+              border: "1px solid #E5E7EB", // Border color to match the input
+              borderRadius: "0.375rem 0 0 0.375rem",
+              padding: "0 8px",
+              // display: "flex",
+              // alignItems: "center",
+              // justifyContent: "center",
+              height: "30px", // Ensure the button height matches the input height
+              boxSizing: "border-box", // Consistent sizing
+              marginRight: "8px", // Adjust margin to align with input field
+            }}
+            containerStyle={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+            dropdownStyle={{
+              backgroundColor: "#FFFFFF", // Background color for the dropdown
+              color: "#000000",
+              width: "180px", // Text color for the country dropdown
+            }}
+            autoFormat={false}
           />
         </div>
 
@@ -134,7 +168,7 @@ const RegisterForm = () => {
 
         <button
           type="submit"
-          className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-md bg-blue-500 text-white"
+          className="px-5 py-1 w-[90vw] sm:w-[50vw] md:w-[40vw] lg:w-[25vw] rounded-xl bg-blue-500 text-white"
           disabled={status === "loading"}
         >
           {status === "loading" ? "Registering..." : "Register"}

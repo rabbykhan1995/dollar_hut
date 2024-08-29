@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "../../../../../lib/prisma";
+import { generateToken } from "@/utils/Backend/jwt";
 
 export async function POST(req, res) {
   try {
@@ -37,14 +38,24 @@ export async function POST(req, res) {
       },
     });
 
-    return NextResponse.json({
-      email: newUser.email,
-      name: newUser.name,
-      gender: newUser.gender,
-      id: newUser.id,
-      mobile: newUser.mobile,
-      userType: newUser.userType,
-    });
+    const token = await generateToken({ id: newUser.id, email: newUser.email });
+
+    return NextResponse.json(
+      {
+        email: newUser.email,
+        name: newUser.name,
+        gender: newUser.gender,
+        id: newUser.id,
+        mobile: newUser.mobile,
+        userType: newUser.userType,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Set-Cookie": `token=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=604800`,
+        },
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       {

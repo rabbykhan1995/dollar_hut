@@ -51,7 +51,7 @@ const LoginForm = () => {
           value={credential.identifier}
           onChange={handleChange}
           id="identifier"
-          className="p-2 rounded-md sm:min-w-[20rem] min-w-[90%]"
+          className="p-2 rounded-xl sm:min-w-[20rem] min-w-[90%] focus:outline-none focus:border-2 border-violet-500"
           placeholder="Email or Username"
           required
         />
@@ -61,7 +61,7 @@ const LoginForm = () => {
           value={credential.password}
           onChange={handleChange}
           id="password"
-          className="p-2 rounded-md sm:min-w-[20rem] min-w-[90%]"
+          className="p-2 rounded-xl sm:min-w-[20rem] min-w-[90%] focus:outline-none focus:border-2 border-violet-500"
           placeholder="Password"
           required
         />
@@ -72,7 +72,7 @@ const LoginForm = () => {
 
         <button
           type="submit"
-          className="bg-green-500 px-5 py-2 rounded-lg w-[7rem]"
+          className="bg-green-500 px-5 py-2 rounded-xl w-[7rem]"
           disabled={status === "loading"}
         >
           {status === "loading" ? "Logging in..." : "login"}

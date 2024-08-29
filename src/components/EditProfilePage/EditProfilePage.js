@@ -55,7 +55,7 @@ const EditProfilePage = () => {
           id="name"
           value={formData.name}
           onChange={handleChange}
-          className="p-2 border rounded"
+          className="px-5 text-zinc-600 text-sm rounded-xl focus:outline-none focus:border border-green-600 py-1"
           required
         />
 
@@ -66,7 +66,7 @@ const EditProfilePage = () => {
           id="email"
           value={formData.email}
           onChange={handleChange}
-          className="p-2 border rounded"
+          className="rounded-xl focus:outline-none focus:border border-green-600 py-1 px-5 text-zinc-600 text-sm"
           required
         />
         <label htmlFor="password">Old Password:</label>
@@ -77,7 +77,7 @@ const EditProfilePage = () => {
           value={formData.old_password}
           onChange={handleChange}
           placeholder="input old password"
-          className="p-2 border rounded"
+          className="rounded-xl focus:outline-none focus:border border-green-600 py-1 px-5 text-zinc-600 text-sm"
         />
 
         <label htmlFor="password">New Password:</label>
@@ -88,7 +88,7 @@ const EditProfilePage = () => {
           value={formData.new_password}
           onChange={handleChange}
           placeholder="input new password"
-          className="p-2 border rounded"
+          className="rounded-xl focus:outline-none focus:border border-green-600 py-1 px-5 text-zinc-600 text-sm"
         />
 
         <label htmlFor="gender">Gender:</label>
@@ -97,7 +97,7 @@ const EditProfilePage = () => {
           id="gender"
           value={formData.gender}
           onChange={handleChange}
-          className="p-2 border rounded"
+          className="rounded-xl focus:outline-none focus:border border-green-600 py-1 px-5 text-zinc-600 text-sm"
           required
         >
           <option value="">Select gender</option>

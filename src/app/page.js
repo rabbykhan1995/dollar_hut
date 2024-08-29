@@ -1,5 +1,4 @@
 import prisma from "../../lib/prisma";
-import Image from "next/image";
 
 const fetchData = async () => {
   try {
@@ -28,8 +27,7 @@ const HomePage = async () => {
   const { data1, data2, error } = await fetchData();
   const totalUser = await prisma.user.count();
   const totalExchange = await prisma.exchange.count();
-  const imageUrl =
-    "https://res.cloudinary.com/dstwflz0y/image/upload/v1723535532/sipn%20website/homepage/gtnxjigbp1glf8wy3zfb.jpg";
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -45,8 +43,6 @@ const HomePage = async () => {
           <h1 className="text-xl">Total User: {totalUser} User</h1>
           <h1 className="text-xl">Total Order: {totalExchange}</h1>
         </div>
-
-        <Image src={imageUrl} alt="home" height={400} width={300} />
       </div>
 
       <div className="flex justify-center items-center p-10 min-h-[50vh] text-lg overflow-hidden text-red-500">

@@ -102,7 +102,7 @@ const ExchangePageForm = () => {
             setMethod(e.target.value);
             handleChange(e);
           }}
-          className="text-black"
+          className="text-black rounded-xl focus:outline-none focus:border border-green-600 py-1 px-5"
         >
           <option disabled defaultChecked>
             Select method
@@ -142,7 +142,7 @@ const ExchangePageForm = () => {
               id="requestedForBank"
               onChange={handleChange}
               value={formData.requestedForBank}
-              className="text-black h-[3vh]"
+              className="text-black h-[3vh] focus:outline-none focus:border-2 border-violet-400"
             >
               <option value="dogecoin">Doge coin</option>
               <option value="ethereum">Ethereum</option>
@@ -215,7 +215,7 @@ const ExchangePageForm = () => {
           onChange={handleChange}
           value={formData.amount}
           placeholder={`Amount in ${method === "t" ? "Taka" : "Dollar"}`}
-          className="text-black px-5"
+          className="text-black px-5 rounded-xl focus:outline-none focus:border border-green-600 py-1"
         />
       </div>
       {/* Display the calculated amount the user will receive */}
@@ -241,7 +241,7 @@ const ExchangePageForm = () => {
             onChange={handleChange}
             value={formData.requestedWithBankDetails}
             placeholder={`Enter your ${formData.requestedWithBank} number`}
-            className="text-black px-5"
+            className="text-black px-5 rounded-xl focus:outline-none focus:border border-green-600 py-1"
           />
         </div>
       )}
@@ -258,7 +258,7 @@ const ExchangePageForm = () => {
             onChange={handleChange}
             value={formData.requestedForBankDetails}
             placeholder={`Enter your ${formData.requestedForBank} number`}
-            className="text-black px-5"
+            className="text-black px-5 rounded-xl focus:outline-none focus:border border-green-600 py-1"
           />
         </div>
       )}

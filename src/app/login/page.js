@@ -13,7 +13,7 @@ const Page = () => {
         </p>
 
         <Link
-          className="border rounded-lg bg-red-400 text-white px-4 py-1"
+          className="border rounded-xl bg-red-400 text-white px-4 py-1"
           href="/register"
         >
           Register
