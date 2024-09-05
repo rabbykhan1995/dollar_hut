@@ -1,22 +1,26 @@
 "use client";
 import { MdEdit } from "react-icons/md";
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import LoadingSpinner from "../LoadingSpin/LoadingSpin";
 
 const ProfilePage = () => {
-  const router = useRouter();
   const { user, status, error } = useSelector((state) => state.user);
 
   return (
-    <div className="flex m-10 h-[70vh] justify-center items-center flex-col gap-5 hover:border-4 hover:border-green-600 font-serif capitalize tracking-widest rounded-2xl">
-      <h1>name : {user ? user.name : null}</h1>
-      <h1 className="flex">
-        email : <span className="lowercase"> {user ? user.email : null}</span>{" "}
+    <div className="flex m-10 h-[70vh] justify-center items-baseline flex-col gap-5  font-serif capitalize tracking-widest rounded-2xl">
+      <h1 className="flex justify-center items-center gap-10">
+        name :{status === "succeeded" ? user.name : <LoadingSpinner />}
       </h1>
-      <h1>gender : {user ? user.gender : null}</h1>
-      <h1>mobile : {user ? user.mobile : null}</h1>
+      <h1 className="flex justify-center items-center gap-10">
+        email : {status === "succeeded" ? user.email : <LoadingSpinner />}
+      </h1>
+      <h1 className="flex justify-start items-center gap-10">
+        gender : {status === "succeeded" ? user.gender : <LoadingSpinner />}
+      </h1>
+      <h1 className="flex justify-center items-center gap-10">
+        mobile : {status === "succeeded" ? user.mobile : <LoadingSpinner />}
+      </h1>
 
       <Link
         href={"/profile/edit"}

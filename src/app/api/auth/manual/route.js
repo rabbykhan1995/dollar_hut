@@ -22,7 +22,7 @@ export async function POST(req, res) {
     if (existingUser) {
       return NextResponse.json(
         { message: "User already exists" },
-        { status: 400 }
+        { status: 409 }
       );
     }
 
@@ -38,7 +38,11 @@ export async function POST(req, res) {
       },
     });
 
-    const token = await generateToken({ id: newUser.id, email: newUser.email });
+    const token = await generateToken({
+      id: newUser.id,
+      email: newUser.email,
+      userType: newUser.userType,
+    });
 
     return NextResponse.json(
       {

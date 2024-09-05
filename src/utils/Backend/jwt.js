@@ -1,7 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 
 const secretKey = new TextEncoder().encode(process.env.JWT_SECRET);
-const hostName = new TextEncoder().encode(process.env.HOST);
+const hostName = process.env.HOST;
 
 export const generateToken = async (payload) => {
   return new SignJWT(payload)
@@ -15,7 +15,8 @@ export const verifyToken = async (token) => {
   try {
     const { payload } = await jwtVerify(token, secretKey);
     return payload;
-  } catch (e) {
-    throw new Error("Invalid or expired token");
+  } catch (error) {
+    console.error("Token verification failed:", error.message);
+    return null; // Return null if verification fails
   }
 };

@@ -1,21 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [apiResponse, setApiResponse] = useState("");
-  const getUserEmail = async () => {
-    const response = await fetch("/api/contact", { cache: "no-cache" });
-    const data = await response.json();
-    if (data) {
-      setEmail(data.result);
-    }
-  };
+  const { user, status, error } = useSelector((state) => state.user);
+
   useEffect(() => {
-    getUserEmail();
-  }, []);
+    if (status === "succeeded" && user.email) {
+      setEmail(user.email);
+    }
+  }, [status, user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,12 +28,12 @@ const ContactForm = () => {
         cache: "no-cache",
       });
       const data = await response.json();
+      console.log(data);
       setMessage("");
       setEmail(data.result.email);
-      setApiResponse(data.msg); // Clear the message field after successful submission
+      setApiResponse(data); // Clear the message field after successful submission
     } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Failed to send message");
+      setApiResponse(error.msg);
     }
   };
 
@@ -46,27 +44,44 @@ const ContactForm = () => {
     >
       {apiResponse !== "" ? (
         <div className="px-10">
-          <h1 className="text-xl text-green-400">Message sent {apiResponse}</h1>
+          <h1 className="text-xl text-green-400">
+            Message sent {apiResponse.msg}
+          </h1>
           <h1 className="text-zinc-400">
             you will recieve an email in -{" "}
-            <span className="font-extralight text-sm font-mon">{email}</span> as
-            soon as possible
+            <span className="font-extralight text-sm font-mono">
+              {apiResponse.result.email}
+            </span>{" "}
+            as soon as possible
           </h1>
+        </div>
+      ) : apiResponse.msg === "failed" ? (
+        <div className="px-10">
+          <h1 className="text-xl text-red-500">{apiResponse.msg}</h1>
         </div>
       ) : null}
       <label htmlFor="email" className="sm:p-10 p-5">
-        Input your email or use a valid email to getting response from us.
+        wait for our response to your valid email from us.
       </label>
       <input
         type="email"
         name="email"
         id="email"
-        value={email}
+        value={
+          status !== "loading" && status !== "failed" ? email : "loading..."
+        }
         onChange={(e) => {
           setEmail(e.target.value);
         }}
-        placeholder="email"
-        className="text-gray-500 text-sm min-w-[15rem] px-4 py-1 rounded-xl focus:outline-none border-2 focus:border-green-400"
+        placeholder={
+          status === "loading"
+            ? "loading"
+            : status === "succeeded"
+            ? user.email
+            : "no user email"
+        }
+        className="text-black text-sm min-w-[15rem] px-4 py-1 rounded-xl focus:outline-none border-2 focus:border-green-400"
+        required
       />
       <textarea
         name="message"

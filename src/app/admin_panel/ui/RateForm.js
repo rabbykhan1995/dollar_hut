@@ -28,7 +28,7 @@ const RateForm = () => {
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        const response = await fetch("/api/admin_panel/rates", {
+        const response = await fetch("/api/rates", {
           cache: "no-cache",
         });
         const data = await response.json();

@@ -32,12 +32,12 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(registerUser(formData));
+      await dispatch(registerUser(formData)).unwrap();
       if (user) {
         router.push("/profile");
       }
     } catch (error) {
-      console.error("Failed to register:", error);
+      alert(error.message);
     }
   };
 

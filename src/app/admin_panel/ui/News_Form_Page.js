@@ -14,12 +14,15 @@ const News_Form_Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.HOST}/api/news`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(news),
-        cache: "no-cache",
-      });
+      const response = await fetch(
+        `${process.env.HOST}/api/admin_panel/customize_page/news`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(news),
+          cache: "no-cache",
+        }
+      );
       const data = await response.json();
       alert(`${data.msg}`);
       setNews({ title: "", content: "" });

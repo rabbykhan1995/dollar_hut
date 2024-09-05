@@ -11,6 +11,7 @@ import { logout, resetState } from "@/utils/Frontend/store/user/userSlice";
 
 const MenuButton = () => {
   const dispatch = useDispatch();
+
   const { user, status, error } = useSelector((state) => state.user);
   const [show, setShow] = useState(false);
   const menuRef = useRef(null);
@@ -36,6 +37,7 @@ const MenuButton = () => {
     await fetch("/api/auth/logout", { cache: "no-cache" });
     dispatch(logout());
     dispatch(resetState());
+    window.location.href = "/";
   };
 
   return (

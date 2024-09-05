@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const fetchRate = createAsyncThunk("rate", async (_, thunkAPI) => {
   try {
-    const response = await fetch(`${process.env.HOST}/api/admin_panel/rates`, {
+    const response = await fetch(`${process.env.HOST}/api/rates`, {
       cache: "no-cache",
     });
     const data = await response.json();

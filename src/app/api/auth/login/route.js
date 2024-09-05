@@ -31,7 +31,11 @@ export async function POST(req) {
       );
     }
 
-    const token = await generateToken({ id: user.id, email: user.email });
+    const token = await generateToken({
+      id: user.id,
+      email: user.email,
+      userType: user.userType,
+    });
 
     return NextResponse.json(
       {

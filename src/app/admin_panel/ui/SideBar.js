@@ -60,7 +60,7 @@ const SideBar = () => {
           </span>
           <span>Visitor</span>
         </li>
-        <Link href={"admin_panel/orders"} className="flex gap-3 items-center">
+        <Link href={"/admin_panel/orders"} className="flex gap-3 items-center">
           <span>
             <MdCurrencyExchange />
           </span>

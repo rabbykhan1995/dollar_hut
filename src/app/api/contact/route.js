@@ -5,6 +5,9 @@ export const POST = async (req) => {
   const userId = req.headers.get("user-id");
 
   const { email, message } = await req.json();
+  if (email === "") {
+    return NextResponse.json({ msg: "failed" });
+  }
 
   const contact = await prisma.contact.create({
     data: {

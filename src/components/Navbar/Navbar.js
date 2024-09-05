@@ -4,6 +4,7 @@ import MenuButton from "../Buttons/MenuButton";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, resetState } from "@/utils/Frontend/store/user/userSlice";
+import LoadingSpinner from "../LoadingSpin/LoadingSpin";
 
 const Navbar = () => {
   const { user, status } = useSelector((state) => state.user);
@@ -15,6 +16,7 @@ const Navbar = () => {
     await fetch("/api/auth/logout", { cache: "no-cache" });
     dispatch(logout());
     dispatch(resetState());
+    window.location.href = "/";
   };
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const Navbar = () => {
           </li>
         ) : null}
         <li>
-          {status === "loading" && <span>Loading...</span>}
+          {status === "loading" && <LoadingSpinner />}
           {status === "succeeded" && user && (
             <>
               {user.userType === "normal" ? (
