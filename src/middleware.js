@@ -56,20 +56,20 @@ export async function middleware(req) {
   ];
 
   if (protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
-    if (!token || !tokenIsVerified) {
+    if (tokenIsVerified) {
+      const { id, email, userType } = tokenIsVerified;
+      const response = NextResponse.next();
+      response.headers.set("user-id", id);
+      response.headers.set("user-email", email);
+      response.headers.set("user-type", userType);
+      return response;
+    } else {
       const url = req.nextUrl.clone();
       url.pathname = "/login";
       const response = NextResponse.redirect(url);
       response.cookies.delete("token");
       return response;
     }
-
-    const { id, email, userType } = tokenIsVerified;
-    const response = NextResponse.next();
-    response.headers.set("user-id", id);
-    response.headers.set("user-email", email);
-    response.headers.set("user-type", userType);
-    return response;
   } else if (
     publicPaths.some((path) => req.nextUrl.pathname.startsWith(path))
   ) {
@@ -80,17 +80,17 @@ export async function middleware(req) {
     }
     return NextResponse.next();
   } else if (adminPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
-    if (tokenIsVerified?.userType === "normal") {
-      const url = req.nextUrl.clone();
-      url.pathname = "/unauthorized";
-      const response = NextResponse.redirect(url);
-      return response;
-    } else if (tokenIsVerified?.userType === "admin") {
+    if (tokenIsVerified?.userType === "admin") {
       const { id, email, userType } = tokenIsVerified;
       const response = NextResponse.next();
       response.headers.set("user-id", id);
       response.headers.set("user-email", email);
       response.headers.set("user-type", userType);
+      return response;
+    } else {
+      const url = req.nextUrl.clone();
+      url.pathname = "/unauthorized";
+      const response = NextResponse.redirect(url);
       return response;
     }
   }
