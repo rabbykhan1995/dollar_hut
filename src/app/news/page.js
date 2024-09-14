@@ -9,7 +9,7 @@ const NewsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.HOST}/api/news`, {
+        const response = await fetch(`/api/news`, {
           cache: "no-cache",
         });
         const data = await response.json();

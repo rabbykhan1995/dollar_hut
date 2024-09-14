@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
@@ -8,12 +9,14 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const { user, status, error } = useSelector((state) => state.user);
+  const router = useRouter();
 
   useEffect(() => {
     if (status === "succeeded" && user.email) {
       setEmail(user.email);
+      router.push("/contact");
     }
-  }, [status, user]);
+  }, [status, user, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

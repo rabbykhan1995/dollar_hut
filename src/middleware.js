@@ -65,7 +65,7 @@ export async function middleware(req) {
       return response;
     } else {
       const url = req.nextUrl.clone();
-      url.pathname = "/login";
+      url.pathname = "/";
       const response = NextResponse.redirect(url);
       response.cookies.delete("token");
       return response;

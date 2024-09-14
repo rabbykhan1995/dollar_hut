@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && prisma generate",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -31,6 +31,7 @@
     "react-icons": "^5.2.1",
     "react-phone-input-2": "^2.15.1",
     "react-redux": "^9.1.2",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

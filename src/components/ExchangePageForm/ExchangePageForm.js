@@ -124,7 +124,12 @@ const ExchangePageForm = () => {
               value={formData.requestedWithBank}
               className="text-black h-[3vh]"
             >
-              <option value="bkash">Bkash</option>
+              <option
+                value="bkash"
+                data-imagesrc="https://res.cloudinary.com/dstwflz0y/image/upload/v1721188092/Logo/Taka/o7ypjttreqdvxoxne0os.png"
+              >
+                Bkash
+              </option>
               <option value="nagad">Nagad</option>
               <option value="rocket">Rocket</option>
               <option value="upay">Upay</option>
