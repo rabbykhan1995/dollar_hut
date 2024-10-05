@@ -20,8 +20,8 @@ const fetchData = async () => {
 
 const HomePage = async () => {
   const { data2, error } = await fetchData();
-  const totalUser = await prisma.user.count();
-  const totalExchange = await prisma.exchange.count();
+  // const totalUser = await prisma.user.count();
+  // const totalExchange = await prisma.exchange.count();
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -35,8 +35,8 @@ const HomePage = async () => {
             This is
           </span>
           <span className="text-2xl font-bold text-gray-800">Dollar Hut</span>
-          <h1 className="text-xl">Total User: {totalUser} User</h1>
-          <h1 className="text-xl">Total Order: {totalExchange}</h1>
+          {/* <h1 className="text-xl">Total User: {totalUser} User</h1> */}
+          {/* <h1 className="text-xl">Total Order: {totalExchange}</h1> */}
         </div>
       </div>
 

@@ -9,20 +9,22 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+
 }
 
-model User{
-    id        Int @id @default(autoincrement())
-    email     String @unique
-    name      String
-    mobile    String // Keep as VARCHAR
-    gender    String
-    userType  UserType @default(normal)
-    password  String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+
+model User {
+  id        Int   @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  mobile    String   // Keeping as VARCHAR
+  gender    String
+  userType  UserType @default(normal)
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum UserType {
@@ -31,7 +33,7 @@ enum UserType {
 }
 
 model Contact {
-  id        Int     @id @default(autoincrement())
+  id        Int   @id @default(autoincrement())
   senderId  Int
   email     String
   message   String
@@ -39,21 +41,20 @@ model Contact {
   updatedAt DateTime @updatedAt
 }
 
-model Exchange{
-  id            Int @id @default(autoincrement())
-  requesterId   Int
-  requestedWith String
-  requestedFor  String
-  requestedWithBank String
-  requestedForBank String
-  onRate Int @default(0)
+model Exchange {
+  id                       Int   @id @default(autoincrement())
+  requesterId              Int
+  requestedWith            String
+  requestedFor             String
+  requestedWithBank        String
+  requestedForBank         String
+  onRate                   Int      @default(0)
   requestedWithBankDetails String
-  requestedForBankDetails String
-
-  amount        Int 
-  state        ExchangeState @default(Applied)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  requestedForBankDetails  String
+  amount                   Int
+  state                    ExchangeState @default(Applied)
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
   @@index([requesterId])
 }
 
@@ -64,42 +65,44 @@ enum ExchangeState {
 }
 
 model Home_Page {
-  id        Int @id
+  id        Int   @id @default(autoincrement())
   hero_list String
-
 }
 
 model Buying_rates {
- id Int @id @default(autoincrement())
-  payeer Int @default(0)
-  ethereum Int @default(0)
-  litecoin Int @default(0) 
-  dogecoin Int @default(0)
-  perfectmoney Int @default(0)
-  pyypl Int @default(0)
-  shibcoin Int @default(0)
-  tether Int @default(0)
-  troncoin Int @default(0)
-  webmoney Int @default(0)// Set default value to 0
+  id          Int   @id @default(autoincrement())
+  payeer      Int      @default(100)
+  ethereum    Int      @default(100)
+  litecoin    Int      @default(100)
+  dogecoin    Int      @default(100)
+  perfectmoney Int     @default(100)
+  pyypl       Int      @default(100)
+  shibcoin    Int      @default(100)
+  tether      Int      @default(100)
+  troncoin    Int      @default(100)
+  webmoney    Int      @default(100)
 }
-model Selling_rates{
-  id Int @id @default(autoincrement())
-  payeer Int @default(0)
-  ethereum Int @default(0)
-  litecoin Int @default(0) 
-  dogecoin Int @default(0)
-  perfectmoney Int @default(0)
-  pyypl Int @default(0)
-  shibcoin Int @default(0)
-  tether Int @default(0)
-  troncoin Int @default(0)
-  webmoney Int @default(0)
+
+model Selling_rates {
+  id          Int   @id @default(autoincrement())
+  payeer      Int      @default(100)
+  ethereum    Int      @default(100)
+  litecoin    Int      @default(100)
+  dogecoin    Int      @default(100)
+  perfectmoney Int     @default(100)
+  pyypl       Int      @default(100)
+  shibcoin    Int      @default(100)
+  tether      Int      @default(100)
+  troncoin    Int      @default(100)
+  webmoney    Int      @default(100)
 }
 
 model News {
-  id        Int      @id @default(autoincrement())
+  id        Int   @id @default(autoincrement())
   title     String
-  content   String   @db.Text   // Use @db.Text for medium-length content or @db.LongText for very long content
+  content   String   // Removed @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+
