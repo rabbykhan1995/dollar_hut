@@ -54,7 +54,6 @@ export async function POST(req) {
       }
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ msg: "authentication failed" }, { status: 500 });
   }
 }

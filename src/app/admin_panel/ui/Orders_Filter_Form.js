@@ -29,15 +29,12 @@ const Orders_Filter_Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `${process.env.HOST}/api/admin_panel/orders`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(filteredData),
-          cache: "no-cache",
-        }
-      );
+      const response = await fetch(`/api/admin_panel/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filteredData),
+        cache: "no-cache",
+      });
 
       const data = await response.json();
       if (data.result) {

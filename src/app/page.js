@@ -1,24 +1,27 @@
 import prisma from "../../lib/prisma";
 
-const fetchData = async () => {
-  try {
-    const response2 = await fetch(`${process.env.HOST}/api/rates`, {
-      cache: "no-cache",
-    });
-
-    if (!response2.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    const data2 = await response2.json();
-
-    return { data2 };
-  } catch (error) {
-    return { error: error.message };
-  }
-};
-
 const HomePage = async () => {
+  const fetchData = async () => {
+    try {
+      const response2 = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/rates`,
+        {
+          cache: "no-cache",
+        }
+      );
+
+      if (!response2.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data2 = await response2.json();
+
+      return { data2 };
+    } catch (error) {
+      return { error: error.message };
+    }
+  };
+
   const { data2, error } = await fetchData();
   // const totalUser = await prisma.user.count();
   // const totalExchange = await prisma.exchange.count();

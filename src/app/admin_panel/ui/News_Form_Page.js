@@ -32,7 +32,7 @@ const News_Form_Page = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`${process.env.HOST}/api/news`, {
+        const response = await fetch(`/api/news`, {
           cache: "no-cache",
         });
         const data = await response.json();

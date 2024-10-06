@@ -70,7 +70,7 @@ const SideBar = () => {
         <SideBarAccordian
           obj={{
             title: "Settings",
-            items: ["nunu", "putki"],
+            items: ["admin", "other"],
             logo: <MdOutlineSettings />,
           }}
         />

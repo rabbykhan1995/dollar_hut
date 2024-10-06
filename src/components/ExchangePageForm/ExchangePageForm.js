@@ -36,7 +36,7 @@ const ExchangePageForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.HOST}/api/exchange`, {
+      const response = await fetch(`/api/exchange`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

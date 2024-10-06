@@ -10,7 +10,7 @@ const nextConfig = {
     ],
   },
   env: {
-    HOST: process.env.HOST,
+    NEXT_PUBLIC_HOST: process.env.NEXT_PUBLIC_HOST,
   },
   webpack: (config) => {
     config.cache = false; // Disables persistent caching
