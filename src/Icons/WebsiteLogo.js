@@ -10,10 +10,10 @@ const WebsiteLogo = () => {
         className="flex justify-center items-center text-xl font-mono"
       >
         <span>
-          <PiCurrencyDollarSimpleBold />
+          <PiCurrencyDollarSimpleBold className="text-white" />
         </span>
         <h1>
-          <span className="text-orange-500">Dollar </span> Hut
+          <span className="text-[#F3D250]">Dollar </span> Hut
         </h1>
       </Link>
     </div>

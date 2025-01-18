@@ -6,7 +6,7 @@ import WebsiteLogo from "@/Icons/WebsiteLogo";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-10 lg:justify-around text-center text-sm mt-10 bg-[#1d1e7a] p-5 border-t-4 border-green-500">
+    <div className="flex flex-col lg:flex-row gap-10 lg:justify-around text-center text-sm text-gray-700 mt-10 bg-[#3B8BEB] p-5">
       <WebsiteLogo />
 
       <div className="flex flex-col gap-5">

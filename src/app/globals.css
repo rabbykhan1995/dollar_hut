@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-color: black;
-  color: aliceblue;
+  background-color: rgb(41, 40, 40);
+ color:white;
 }
 .custom-scrollbar {
   scrollbar-width: thin; /* "auto" or "thin" */

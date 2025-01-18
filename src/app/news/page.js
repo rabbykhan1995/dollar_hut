@@ -6,27 +6,27 @@ const NewsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/news`, {
-          cache: "no-cache",
-        });
-        const data = await response.json();
-        if (!response.ok) {
-          console.log(data.msg);
-        }
-
-        setResult(data.result);
-      } catch (error) {
-        console.error("Fetch error:", error.message, error.stack);
-        setError(error.message);
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`/api/news`, {
+        cache: "no-cache",
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        console.log(data.msg);
       }
-    };
 
-    fetchData();
+      setResult(data.result);
+    } catch (error) {
+      console.error("Fetch error:", error.message, error.stack);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+     fetchData();
   }, []);
   if (loading) return null;
   if (error) return <div>Error: {error}</div>;

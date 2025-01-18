@@ -38,7 +38,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`Nav_Container flex flex-col gap-5 fixed w-screen bg-[#0077dd] px-5 py-2 tracking-wider font-mono transition-transform duration-300 ${
+      className={`Nav_Container flex flex-col gap-5 fixed w-screen bg-[#2C2E3A] px-5 py-2 tracking-wider font-mono transition-transform duration-300 ${
         isNavbarVisible
           ? "transform translate-y-0"
           : "transform -translate-y-full"

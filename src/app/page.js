@@ -1,5 +1,3 @@
-import prisma from "../../lib/prisma";
-
 const HomePage = async () => {
   const fetchData = async () => {
     try {
@@ -32,18 +30,18 @@ const HomePage = async () => {
 
   return (
     <div className="pt-10">
-      <div className="flex flex-col sm:flex-row justify-between h-[100vh] gap-5 bg-[#e4ff82] text-[#1d1d1d] font-semibold italic">
+      <div className="flex flex-col sm:flex-row justify-between h-[100vh] gap-5 bg-[#E64833] text-[#1d1d1d] font-semibold italic">
         <div className="flex flex-col justify-center items-start p-5 w-full xs:w-1/2 space-y-4">
-          <span className="text-5xl font-mono font-bold bg-gradient-to-r from-green-700 to-violet-500 bg-clip-text text-transparent">
+          <span className="text-5xl font-mono font-bold bg-gradient-to-r from-[#0FA4AF] to-yellow-500 bg-clip-text text-transparent">
             This is
           </span>
-          <span className="text-2xl font-bold text-gray-800">Dollar Hut</span>
+          <span className="text-2xl font-bold text-[#003135]">Dollar Hut</span>
           {/* <h1 className="text-xl">Total User: {totalUser} User</h1> */}
           {/* <h1 className="text-xl">Total Order: {totalExchange}</h1> */}
         </div>
       </div>
 
-      <div className="flex justify-center items-center p-10 min-h-[50vh] text-lg overflow-hidden text-red-500">
+      <div className="flex justify-center items-center p-10 min-h-[50vh] font-bold text-lg overflow-hidden text-yellow-500">
         <h1 className="whitespace-nowrap animate-marquee">
           আমি বলতে চাই যে সমস্ত লেনদেন আপনার খরচে সম্পন্ন হবে। এছাড়াও, টাকা
           থেকে ডলার এবং ডলার থেকে টাকা রূপান্তরের জন্য, প্রযোজ্য সমস্ত চার্জ
@@ -58,8 +56,8 @@ const HomePage = async () => {
           <table className="min-w-full bg-white border rounded-lg ">
             <thead>
               <tr>
-                <th className="py-2 px-4 border-b">Currency</th>
-                <th className="py-2 px-4 border-b">Rate</th>
+                <th className="py-2 px-4 border-b bg-yellow-300">Currency</th>
+                <th className="py-2 px-4 border-b bg-violet-300">Rate</th>
               </tr>
             </thead>
             <tbody>
@@ -68,9 +66,9 @@ const HomePage = async () => {
                   rate !== "id" && (
                     <tr
                       key={rate}
-                      className={`hover:bg-green-100 ${
-                        index % 2 === 0 ? "bg-gray-300" : "bg-white"
-                      }`}
+                      className={`hover:bg-purple-400 ${
+                        index % 2 === 0 ? "bg-green-300" : "bg-orange-300"
+                      } font-bold`}
                     >
                       <td className="py-2 px-4 border-b">{rate}</td>
                       <td className="py-2 px-4 border-b">
@@ -88,8 +86,8 @@ const HomePage = async () => {
           <table className="min-w-full bg-white border rounded-lg  ">
             <thead>
               <tr>
-                <th className="py-2 px-4 border-b">Currency</th>
-                <th className="py-2 px-4 border-b">Rate</th>
+              <th className="py-2 px-4 border-b bg-yellow-300">Currency</th>
+              <th className="py-2 px-4 border-b bg-violet-300">Rate</th>
               </tr>
             </thead>
             <tbody>
@@ -98,9 +96,9 @@ const HomePage = async () => {
                   rate !== "id" && (
                     <tr
                       key={rate}
-                      className={`hover:bg-green-100 ${
-                        index % 2 === 0 ? "bg-gray-300" : "bg-white"
-                      }`}
+                      className={`hover:bg-purple-400 ${
+                        index % 2 === 0 ? "bg-green-300" : "bg-orange-300"
+                      } font-bold`}
                     >
                       <td className="py-2 px-4 border-b">{rate}</td>
                       <td className="py-2 px-4 border-b">

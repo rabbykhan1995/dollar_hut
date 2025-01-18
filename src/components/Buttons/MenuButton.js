@@ -52,7 +52,7 @@ const MenuButton = () => {
       {show ? (
         <div
           ref={menuRef}
-          className="fixed flex flex-col gap-5 px-4 py-2 bg-[#cc6c5c]  w-screen top-9 rounded-xl"
+          className="fixed flex flex-col gap-5 px-4 py-2 bg-[#0A21C0]  w-screen top-9 rounded-xl"
         >
           <h1>
             <Link className="flex gap-2 hover:bg-zinc-700" href={"/"}>
