@@ -17,8 +17,9 @@ const LoginForm = () => {
 
   const googleRequestFunction = async () => {
       try {
-        window.location.href = `${process.env.NEXT_PUBLIC_GOOGLE_URI}`;
-        // router.push(`${process.env.GOOGLE_URI}`);
+        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&response_type=token&scope=openid%20email%20profile`;
+        console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID, process.env.NEXT_PUBLIC_REDIRECT_URI
+        )
       } catch (error) { 
         console.log(error);
       }
