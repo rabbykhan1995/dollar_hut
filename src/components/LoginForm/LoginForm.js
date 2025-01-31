@@ -1,5 +1,7 @@
 "use client";
 
+import { FcGoogle } from "react-icons/fc";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +12,17 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const { status, user } = useSelector((state) => state.user); // Adjust the state selector if necessary
+
+  const [google, setGoogle] = useState([]);
+
+  const googleRequestFunction = async () => {
+      try {
+        window.location.href = `${process.env.NEXT_PUBLIC_GOOGLE_URI}`;
+        // router.push(`${process.env.GOOGLE_URI}`);
+      } catch (error) { 
+        console.log(error);
+      }
+  }
 
   const [credential, setCredential] = useState({
     identifier: "",
@@ -78,6 +91,17 @@ const LoginForm = () => {
           {status === "loading" ? "Logging in..." : "login"}
         </button>
       </form>
+
+      <div className="flex gap-5 flex-col justify-center items-center mt-4">
+        <h1 className="text-white flex">
+          Or
+        </h1>
+
+        <button
+         onClick={googleRequestFunction} className="px-3 py-1 rounded-md text-black hover:bg-slate-400 bg-slate-100 flex justify-between items-center gap-3">
+          <FcGoogle className="text-2xl" /> <span>Login with Google</span>
+        </button>
+      </div>
     </div>
   );
 };

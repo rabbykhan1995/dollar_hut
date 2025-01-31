@@ -17,12 +17,13 @@ datasource db {
 
 model User {
   id        Int   @id @default(autoincrement())
+  openId    String?
   email     String   @unique
   name      String
-  mobile    String   // Keeping as VARCHAR
-  gender    String
+  mobile    String?   // Keeping as VARCHAR
+  gender    String?
   userType  UserType @default(normal)
-  password  String
+  password  String?   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

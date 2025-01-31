@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "openId" TEXT,
+ALTER COLUMN "mobile" DROP NOT NULL,
+ALTER COLUMN "gender" DROP NOT NULL,
+ALTER COLUMN "password" DROP NOT NULL;

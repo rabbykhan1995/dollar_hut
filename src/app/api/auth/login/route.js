@@ -14,10 +14,14 @@ export async function POST(req) {
       },
     });
 
+    if(user.openId){
+      return NextResponse.json({msg:"login with google"}, {status:203});
+    }
+
     if (!user) {
       return NextResponse.json(
         { msg: "authentication failed" },
-        { status: 400 }
+        { status: 404 }
       );
     }
 
